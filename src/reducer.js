@@ -20,7 +20,13 @@ const reducer = (state, action) => {
       };
       return completedResult;
     case "uncomplete":
-      return;
+      const uncompletedTodo = state.completedToDos.find((todo) => todo.id === action.id);
+      const uncompletedResult = {
+        ...state,
+        toDos: [...state.toDos, uncompletedTodo],
+        completedToDos: state.completedToDos.filter((completedToDo) => completedToDo.id !== action.id),
+      };
+      return uncompletedResult;
     default:
       throw new Error("Wrong Action Type!");
   }
